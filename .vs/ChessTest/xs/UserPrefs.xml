@@ -1,0 +1,24 @@
+﻿<Properties StartupConfiguration="{DE16767C-CAAC-3CFA-227E-41F6496CDAAF}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Cell.cs">
+    <Files>
+      <File FileName="Assets/Scripts/GameManager.cs" Line="2" Column="34" IsPinned="True" />
+      <File FileName="Assets/Scripts/Cell.cs" Line="26" Column="29" />
+      <File FileName="Assets/Scripts/Piece.cs" />
+      <File FileName="Assets/Scripts/UIManager.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ChessTest" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9b6d9685-5838-4531-9d08-fc08a7686320" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
