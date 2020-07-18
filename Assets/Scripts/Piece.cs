@@ -6,7 +6,7 @@ public class Piece : MonoBehaviour
 {
     public int damage;
     public int armor;
-    private int health;
+    public int health;
     public int healthMax;
 
     public int moveRange;
@@ -17,13 +17,16 @@ public class Piece : MonoBehaviour
     public int playerNumber;
 
     private GameManager GameManager;
+    private UIManager UIManager;
 
     public bool attackable;
+
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
         SetStandCell(true);
         health = healthMax;
     }
@@ -38,13 +41,16 @@ public class Piece : MonoBehaviour
         Debug.Log(" this is a " + tag + " player:" + playerNumber);
         if (playerNumber == GameManager.mainPlayer)
         {
-            GameManager.selected = gameObject;
+
+            
             if (!hasMoved)
             {
+                GameManager.selected = gameObject;
                 GameManager.ShowMoveRange();
             }
             else if (!hasAttacked)
             {
+                GameManager.selected = gameObject;
                 GameManager.ShowAttackRange();
             }
         }
@@ -53,7 +59,9 @@ public class Piece : MonoBehaviour
             ApplyDamage(GameManager.selected.GetComponent<Piece>().damage);
             GameManager.selected.GetComponent<Piece>().hasAttacked = true;
             GameManager.CloseAllRanges();
+            attackable = false;
         }
+        UIManager.ShowInfo(gameObject.GetComponent<Piece>());
         
     }
     //public void Attack()
@@ -63,9 +71,11 @@ public class Piece : MonoBehaviour
     public void ApplyDamage(int _damage)
     {
         health -= (_damage - armor);
+        UIManager.ShowInfo(gameObject.GetComponent<Piece>());
         Debug.Log(" apply damage:"+_damage+" health = "+health);
         if (health <= 0)
         {
+            SetStandCell(false);
             GameManager.PieceDestroy(gameObject);
         }
 

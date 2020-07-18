@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class GameManager : MonoBehaviour
 {
     public GameObject[] cells;
@@ -18,6 +17,9 @@ public class GameManager : MonoBehaviour
 
     public int mainPlayer;
     public int nextPlayer;
+
+    
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             CloseAllRanges();
         }
+        
     }
 
     public void ShowMoveRange()
@@ -152,4 +155,7 @@ public class GameManager : MonoBehaviour
         }
         Destroy(_gameObject);
     }
+
+    
+    
 }
