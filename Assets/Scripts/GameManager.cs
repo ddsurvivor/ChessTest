@@ -18,14 +18,15 @@ public class GameManager : MonoBehaviour
     public int mainPlayer;
     public int nextPlayer;
 
-    
+    private AudioManager AudioManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
         cells = GameObject.FindGameObjectsWithTag("Cell");
-        
+        AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+
 
         moveList = new List<GameObject>();
         attackList = new List<GameObject>();
@@ -37,9 +38,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             CloseAllRanges();
+            AudioManager.audioCancel.Play();
         }
         
     }
@@ -108,7 +110,7 @@ public class GameManager : MonoBehaviour
         {
             //cell.GetComponent<Cell>().movabel = false;
             cell.GetComponent<Cell>().attackCell.SetActive(false);
-            cell.GetComponent<Cell>().SetAttackable(true);
+            cell.GetComponent<Cell>().SetAttackable(false);
         }
         attackList.Clear();
     }

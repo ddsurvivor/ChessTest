@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Cell.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\LogTest.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\cell1.cs" />
     <None Include="Assets\1bitpack_kenney\License.txt" />
+    <None Include="Assets\kenney_uiaudio\License.txt" />
     <None Include="Assets\kenney_fontpackage\License.txt" />
     <None Include="Assets\pixeluipack\Spritesheet\spritesheetInfo.txt" />
     <None Include="Assets\pixeluipack\License.txt" />

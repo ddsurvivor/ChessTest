@@ -18,6 +18,7 @@ public class Piece : MonoBehaviour
 
     private GameManager GameManager;
     private UIManager UIManager;
+    private AudioManager AudioManager;
 
     public bool attackable;
 
@@ -27,6 +28,7 @@ public class Piece : MonoBehaviour
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         SetStandCell(true);
         health = healthMax;
     }
@@ -39,10 +41,11 @@ public class Piece : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log(" this is a " + tag + " player:" + playerNumber);
+        
         if (playerNumber == GameManager.mainPlayer)
         {
 
-            
+            AudioManager.audioSelect.Play();
             if (!hasMoved)
             {
                 GameManager.selected = gameObject;
@@ -56,11 +59,17 @@ public class Piece : MonoBehaviour
         }
         else if (attackable)
         {
+            AudioManager.audioAttack.Play();
             ApplyDamage(GameManager.selected.GetComponent<Piece>().damage);
             GameManager.selected.GetComponent<Piece>().hasAttacked = true;
             GameManager.CloseAllRanges();
             attackable = false;
         }
+        else if (playerNumber == GameManager.nextPlayer)
+        {
+            AudioManager.audioClick.Play();
+        }
+        
         UIManager.ShowInfo(gameObject.GetComponent<Piece>());
         
     }
@@ -82,6 +91,7 @@ public class Piece : MonoBehaviour
     }
     public void Move(float _x, float _y)
     {
+        
         SetStandCell(false);
         transform.position = new Vector3(_x, _y, transform.position.z);
         GameManager.CloseAllRanges();

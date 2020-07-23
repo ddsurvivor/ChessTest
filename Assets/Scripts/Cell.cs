@@ -11,10 +11,12 @@ public class Cell : MonoBehaviour
     public int playerNumber;
 
     private GameManager GameManager;
+    private AudioManager AudioManager;
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -27,10 +29,15 @@ public class Cell : MonoBehaviour
     {
         //Debug.Log("this is a cell 这是一个单元格");
         Debug.Log(" this is a " + tag + " positon: " + transform.position.x + "," + transform.position.y);
+        
         if (movabel)
         {
             GameManager.selected.GetComponent<Piece>().Move(transform.position.x, transform.position.y);
-            
+            AudioManager.audioMove.Play();
+        }
+        else
+        {
+            AudioManager.audioClick.Play();
         }
     }
     public void SetAttackable(bool _attackable)
