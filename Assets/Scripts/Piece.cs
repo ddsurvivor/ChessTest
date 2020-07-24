@@ -22,12 +22,13 @@ public class Piece : MonoBehaviour
 
     public bool attackable;
 
+    public GameObject deadParticle;
 
     // Start is called before the first frame update
     void Start()
     {
         GameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        UIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        UIManager = GameObject.Find("UICanvas").GetComponent<UIManager>();
         AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         SetStandCell(true);
         health = healthMax;
@@ -85,6 +86,7 @@ public class Piece : MonoBehaviour
         if (health <= 0)
         {
             SetStandCell(false);
+            Instantiate(deadParticle, transform.position, Quaternion.identity);
             GameManager.PieceDestroy(gameObject);
         }
 

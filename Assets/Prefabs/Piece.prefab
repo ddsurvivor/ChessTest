@@ -124,7 +124,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   armor: 1
+  health: 0
   healthMax: 5
   moveRange: 2
   attackRange: 1
+  hasMoved: 0
+  hasAttacked: 0
   playerNumber: 1
+  attackable: 0
+  deadParticle: {fileID: 8383809102455558663, guid: c287359e6d3894d7490e94b0c7f67d32,
+    type: 3}

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public int nextPlayer;
 
     private AudioManager AudioManager;
+    private Animator TurnText;
 
 
     // Start is called before the first frame update
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         cells = GameObject.FindGameObjectsWithTag("Cell");
         AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
-
+        TurnText = GameObject.Find("TurnText").GetComponent<Animator>();
 
         moveList = new List<GameObject>();
         attackList = new List<GameObject>();
@@ -120,6 +121,15 @@ public class GameManager : MonoBehaviour
         CloseAllRanges();
         selected = null;
 
+        if (mainPlayer == 1)
+        {
+            TurnText.SetTrigger("RedTurn");
+        }
+        else if (mainPlayer == 2)
+        {
+            TurnText.SetTrigger("BlueTurn");
+        }
+
         int t = mainPlayer;
         mainPlayer = nextPlayer;
         nextPlayer = t;
@@ -134,6 +144,7 @@ public class GameManager : MonoBehaviour
                 p.ReSet();
             }
         }
+        
 
         Debug.Log("Turn end, now player is: " + mainPlayer);
     }
