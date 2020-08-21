@@ -69,6 +69,8 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Lifetime.cs" />
     <Compile Include="Assets\Scripts\LogTest.cs" />
+    <Compile Include="Assets\Scripts\PathDisplayer.cs" />
+    <Compile Include="Assets\Scripts\PathManager.cs" />
     <Compile Include="Assets\Scripts\Piece.cs" />
     <Compile Include="Assets\Scripts\StartMenu.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />

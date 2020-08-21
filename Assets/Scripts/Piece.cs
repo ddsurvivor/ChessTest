@@ -24,6 +24,8 @@ public class Piece : MonoBehaviour
 
     public GameObject deadParticle;
 
+    public GameObject cell;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +118,7 @@ public class Piece : MonoBehaviour
                 if (_stand == true)
                 {
                     hit.collider.GetComponent<Cell>().playerNumber = playerNumber;
+                    cell = hit.collider.gameObject;
                 }
                 else
                 {

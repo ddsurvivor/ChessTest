@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private AudioManager AudioManager;
     private Animator TurnText;
 
+    private PathManager PathManager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
         cells = GameObject.FindGameObjectsWithTag("Cell");
         AudioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         TurnText = GameObject.Find("TurnText").GetComponent<Animator>();
+        PathManager = GameObject.Find("PathManager").GetComponent<PathManager>();
 
         moveList = new List<GameObject>();
         attackList = new List<GameObject>();
@@ -50,22 +53,50 @@ public class GameManager : MonoBehaviour
     public void ShowMoveRange()
     {
         CloseAllRanges();
-        foreach (var cell in cells)
+        
+        List<GameObject> now = new List<GameObject>();
+        List<GameObject> open = new List<GameObject>();
+        List<GameObject> closed = new List<GameObject>();
+
+        now.Add(selected.GetComponent<Piece>().cell);
+
+        int range = selected.GetComponent<Piece>().moveRange;
+        for (int i = 0; i < range; i++)
         {
-            int range = selected.GetComponent<Piece>().moveRange;
-            if (Mathf.Abs(cell.transform.position.x - selected.transform.position.x) + Mathf.Abs(cell.transform.position.y - selected.transform.position.y) <= range && cell.GetComponent<Cell>().playerNumber == 0)
+            foreach (var current in now)
             {
-                cell.GetComponent<Cell>().movabel = true;
-                cell.GetComponent<Cell>().moveCell.SetActive(true);
-                moveList.Add(cell);
+                closed.Add(current);
+                List<GameObject> neighbours = current.GetComponent<Cell>().GetNeighbour();
+                foreach (var neighbour in neighbours)
+                {
+                    if (neighbour.GetComponent<Cell>().playerNumber != 0 || FindIn(neighbour,closed))
+                    {
+                        continue;
+                    }
+                    if (!FindIn(neighbour,open))
+                    {
+                        open.Add(neighbour);
+                        neighbour.GetComponent<Cell>().movable = true;
+                        neighbour.GetComponent<Cell>().moveCell.SetActive(true);
+                        moveList.Add(neighbour);
+                    }
+                }
             }
+            
+            now.Clear();
+            foreach (var item in open)
+            {
+                now.Add(item);
+            }
+            open.Clear();
         }
+
     }
     public void CloseMoveRange()
     {
         foreach (var cell in moveList)
         {
-            cell.GetComponent<Cell>().movabel = false;
+            cell.GetComponent<Cell>().movable = false;
             cell.GetComponent<Cell>().moveCell.SetActive(false);
         }
         moveList.Clear();       
@@ -101,9 +132,10 @@ public class GameManager : MonoBehaviour
     }
     public void CloseAllRanges()
     {
+        PathManager.ClearNode();
         foreach (var cell in moveList)
         {
-            cell.GetComponent<Cell>().movabel = false;
+            cell.GetComponent<Cell>().movable = false;
             cell.GetComponent<Cell>().moveCell.SetActive(false);
         }
         moveList.Clear();
@@ -169,6 +201,16 @@ public class GameManager : MonoBehaviour
         Destroy(_gameObject);
     }
 
-    
-    
+    public bool FindIn(GameObject gb, List<GameObject> _cells)
+    {
+        foreach (var cell in _cells)
+        {
+            if (gb == cell)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
